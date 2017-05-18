@@ -10,4 +10,5 @@ at the moment it's only supporting the .obj file format.
 compiling and running
 
   $ javac Viewer.java
+  
   $ java Viewer path/to/file.obj
