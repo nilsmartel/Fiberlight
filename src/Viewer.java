@@ -17,7 +17,7 @@ class Viewer{
 
   public static void main(String[] args) throws InterruptedException{
     GuiFrame app = new GuiFrame(512,512);
-    String filepath = "data/ico/high.obj";
+    String filepath = "suz.obj";
     if(args.length > 0){
       filepath = args[0];
     }
@@ -57,7 +57,11 @@ class Viewer{
   }
 }
 
-
+class Camera{
+  //All Data about
+  DataMap renderPass;
+  
+}
 
 class GuiFrame{
   void clearIdx( int grey ){
