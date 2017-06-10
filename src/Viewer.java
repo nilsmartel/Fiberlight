@@ -60,12 +60,25 @@ class Viewer{
 class Camera{
   //All Data about
   DataMap renderPass;
-  
+  LinaObj matrix;
+  int width, height;
+
+  public Camera(){
+    this(512,512);
+  }
+
+  public Camera(int sx, int sy){
+    this.width = sx;
+    this.height= sy;
+    this.matrix = new LinaObj();
+    this.renderPass = new DataMap(this.width, this.height);
+
+  }
 }
 
 class GuiFrame{
   void clearIdx( int grey ){
-    grey=grey%256;
+    grey%=256;
     for(int m=0;m<this.can.idx.data.length; m++){
       this.can.idx.data[m] = grey;
     }
