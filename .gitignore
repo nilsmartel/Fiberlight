@@ -1,0 +1,12 @@
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/workspace.xml
+back/
+ref/
+*.obj
