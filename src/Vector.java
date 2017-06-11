@@ -32,6 +32,40 @@ public class Vector implements Comparable<Vector> {
                 value[i++] = d;
     }
 
+    public int size(){
+        return this.value.length;
+    }
+
+    public Vector add( Vector obj ){
+        if(obj.size() != this.size() ) return new Vector(0,0,0);
+
+        double[] v = new double[this.size()];
+        for(int i=0;i<v.length;i++){
+            v[i] = this.value[i]+obj.value[i];
+        }
+        return new Vector(v);
+    }
+
+    public Vector subtract( Vector obj ){
+        if(obj.size() != this.size() ) return new Vector(0,0,0);
+
+        double[] v = new double[this.size()];
+        for(int i=0;i<v.length;i++){
+            v[i] = this.value[i]-obj.value[i];
+        }
+        return new Vector(v);
+    }
+
+    public Vector multiply( Vector obj ){
+        if(obj.size() != this.size() ) return new Vector(0,0,0);
+
+        double[] v = new double[this.size()];
+        for(int i=0;i<v.length;i++){
+            v[i] = this.value[i]-obj.value[i];
+        }
+        return new Vector(v);
+    }
+
     double x(){
         return this.value[0];
     }
@@ -42,6 +76,24 @@ public class Vector implements Comparable<Vector> {
 
     double z(){
         return (value.length < 3) ? 0 : this.value[2];
+    }
+
+    double x( double i ){
+        this.value[0]=i;
+        return this.value[0];
+    }
+
+    double y( double i ){
+        this.value[1]=i;
+        return this.value[1];
+    }
+
+    double z( double i ){
+        if(this.value.length > 2){
+            this.value[2] = i;
+            return this.value[2];
+        }
+        return 0;
     }
 
     @Override

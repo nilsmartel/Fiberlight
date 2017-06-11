@@ -16,6 +16,15 @@ public class Model {
         face = f.toArray(new Face[ f.size() ] );
     }
 
+    Vector[] c_nrm;
+    boolean customNormals=false;
+    public void setUpCustomNormals(){
+        c_nrm = new Vector[face.length];
+
+        for(int i=0;i<face.length;i++) c_nrm[i] = MeshAlgorithm.getSurfaceNormal(getTriangle(i));
+        customNormals=true;
+    }
+
     public Model(){
         name="Fiberlight";
         vert = new Vector[0];
@@ -27,6 +36,16 @@ public class Model {
     public boolean isEmpty(){
         return ( this.face.length == 0 );
     }
+
+    public Vector[] getTriangle( int i ){
+        if(i > this.face.length )  i %= this.face.length;
+        Vector[] tri  = new Vector[3];
+        tri[0]=this.vert[ this.face[i].id[0][0] ];
+        tri[1]=this.vert[ this.face[i].id[1][0] ];
+        tri[2]=this.vert[ this.face[i].id[2][0] ];
+        return tri;
+    }
+
 
     public TriNode[] getTriData( LinaObj lin ){
         if(isEmpty()) return new TriNode[0];
@@ -44,21 +63,40 @@ public class Model {
             tNrm[i] = lin.alignVector( this.nrm[i] );
         }
 
-        for(int i=0; i< this.face.length; i++){
-            tri[i] = new TriNode(
-                    i,
-                    tVert[ this.face[i].id[0][0] ],
-                    this.uv[ this.face[i].id[0][1] ],
-                    tNrm[ this.face[i].id[0][2] ],
+        if(!customNormals){
+            for(int i=0; i< this.face.length; i++){
+                tri[i] = new TriNode(
+                        i,
+                        tVert[ this.face[i].id[0][0] ],
+                        this.uv[ this.face[i].id[0][1] ],
+                        tNrm[ this.face[i].id[0][2] ],
 
-                    tVert[ this.face[i].id[1][0] ],
-                    this.uv[ this.face[i].id[1][1] ],
-                    tNrm[ this.face[i].id[1][2] ],
+                        tVert[ this.face[i].id[1][0] ],
+                        this.uv[ this.face[i].id[1][1] ],
+                        tNrm[ this.face[i].id[1][2] ],
 
-                    tVert[ this.face[i].id[2][0] ],
-                    this.uv[ this.face[i].id[2][1] ],
-                    tNrm[ this.face[i].id[2][2] ]
-            );
+                        tVert[ this.face[i].id[2][0] ],
+                        this.uv[ this.face[i].id[2][1] ],
+                        tNrm[ this.face[i].id[2][2] ]
+                );
+            }
+        }else{
+            for(int i=0; i< this.face.length; i++){
+                tri[i] = new TriNode(
+                        i,
+                        tVert[ this.face[i].id[0][0] ],
+                        this.uv[ this.face[i].id[0][1] ],
+                        c_nrm[i],
+
+                        tVert[ this.face[i].id[1][0] ],
+                        this.uv[ this.face[i].id[1][1] ],
+                        c_nrm[i],
+
+                        tVert[ this.face[i].id[2][0] ],
+                        this.uv[ this.face[i].id[2][1] ],
+                        c_nrm[i]
+                );
+            }
         }
 
         return tri;

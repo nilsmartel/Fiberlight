@@ -36,6 +36,10 @@ class Viewer{
                 }
                 continue;
             }
+            if(txt.equals("nrm")){
+                rawMesh.setUpCustomNormals();
+                continue;
+            }
             if(txt.equals("rot")){
                 double a = (scanner.nextInt()*Math.PI)/180;
                 double b = (scanner.nextInt()*Math.PI)/180;
