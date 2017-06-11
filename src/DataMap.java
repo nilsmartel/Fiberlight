@@ -19,7 +19,7 @@ public class DataMap{
     for(int i=0; i< width;i++) for(int j=0; j< height; j++) isPixel[i][j]=false;
   }
 
-  void setPixelData( double[] v ){
+  void setPixelData( double[] v, int id){
     /**
      * ______POSITION_____
      * 0  X : Position           (Absolute)
@@ -38,10 +38,10 @@ public class DataMap{
     int y = (int)v[1];
     if( x>= width || y>= height || x<0 || y<0) return;
     if( isPixel[x][y]){
-      if(map[x][y].depth > v[2])  map[x][y].putData( v );
+      if(map[x][y].depth > v[2])  map[x][y].putData( v, id );
     }else{
       isPixel[x][y] = true;
-      map[x][y] = new RenderData( v );
+      map[x][y] = new RenderData( v, id);
     }
   }
 }
