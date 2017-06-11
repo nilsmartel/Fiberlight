@@ -21,6 +21,14 @@ class Viewer{
     if(args.length > 0){
       filepath = args[0];
     }
+
+    Model rawMesh;
+    rawMesh = Parser2nd.parseObjFile( filepath );
+
+    // |
+    // |  Replace these with better method
+    // |  Mesh xy = Parser2nd.parseObjFile( filepath );
+    // V
     Parser p = new Parser( filepath );
     app.obj = p.createMesh();
     app.setTitle( app.obj.name );
