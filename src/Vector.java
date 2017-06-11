@@ -24,11 +24,11 @@ public class Vector implements Comparable<Vector> {
     public Vector(Vector[] merge){
         int len=0;
         for( Vector v : merge )
-            len += v.value.length();
+            len += v.value.length;
         value = new double[len];
         int i=0;
         for( Vector v : merge )
-            for( double d : v )
+            for( double d : v.value )
                 value[i++] = d;
     }
 

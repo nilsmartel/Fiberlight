@@ -22,6 +22,7 @@ public class Pixel{
     }
 
     public static Pixel blendPixels( Pixel a, Pixel b, double fac ){
+        fac=Math.max(Math.min(fac, 1), 0);
         return new Pixel(
                 (int)( a.r*(1-fac) + b.r*fac ),
                 (int)( a.g*(1-fac) + b.g*fac ),

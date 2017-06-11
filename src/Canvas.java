@@ -560,7 +560,7 @@ class Idx{
                     col1.add( p00, 1-fac_y );
                     col1.add( p01, fac_y );
 
-                    p10=getPixel(x+1,y);
+                    p10=getPixel(1,y);
                     ax=0;
                     stepx=0;
                     for(int x=0; x<width; x++){

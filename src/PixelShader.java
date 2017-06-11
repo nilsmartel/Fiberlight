@@ -18,6 +18,6 @@ public class PixelShader{
   static Pixel reflection( RenderData pass ){
     Pixel refl = TextureStack.getReflection(pass.nrm_x, pass.nrm_y);
     Pixel color= new Pixel( 48, 230, 64);
-    return color.blend(refl, 0.02+ 1-(pass.fresnel*0.98) );
+    return Pixel.blendPixels(refl, color, pass.fresnel );
   }
 }
