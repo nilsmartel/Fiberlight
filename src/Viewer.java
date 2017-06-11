@@ -12,6 +12,23 @@ class Viewer{
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String txt = scanner.next();
+            if(txt.equals("open")){
+                rawMesh = Parser.parseObjFile( scanner.next() );
+                //app.setTitle( rawMesh.name );
+                if(rawMesh.isEmpty()){
+                    System.out.println("import failed");
+                }else{
+                    System.out.println("import successfull");
+                    //app = new GuiFrame(512,512);
+                    app.setTitle( rawMesh.name );
+                    app.view.matrix.setScale( 96 );
+                    app.view.matrix.setRot( -Math.PI, 0, 0);
+                    app.view.matrix.rotateMx();
+                    app.view.setCamera();
+                    app.drawCanvas();
+                }
+                continue;
+            }
             if(txt.equals("rot")){
                 double a = (scanner.nextInt()*Math.PI)/180;
                 double b = (scanner.nextInt()*Math.PI)/180;
@@ -56,27 +73,32 @@ class Viewer{
 
     public static void main(String[] args) throws InterruptedException{
         app = new GuiFrame(512,512);
-        String filepath = "suz.obj";
+        String filepath = "/Users/nilsmartel/git/Fiberlight/src/suz.obj";
         if(args.length > 0){
             filepath = args[0];
         }
 
         rawMesh = Parser.parseObjFile( filepath );
-        app.setTitle( rawMesh.name );
-        TextureStack.loadTextureMaps();
-
-        int r1=1;
-        double r2=64;
-        while(r1++ < r2){
-            double fac = Math.pow((r1/r2),2);
-            app.view.matrix.setScale( 96*fac );
-            app.view.matrix.setRot( -Math.PI*fac, 1.00002*(1-fac), 0.7*(1-fac));
-            app.view.matrix.rotateMx();
-            app.view.setCamera();
-            app.drawCanvas();
-            Thread.sleep(20);
+        //app.setTitle( rawMesh.name );
+        if(rawMesh.isEmpty()){
+            System.out.println("import .obj file using 'open' command");
+        }else{
+            //app = new GuiFrame(512,512);
+            app.setTitle( rawMesh.name );
+            int r1=1;
+            double r2=32;
+            while(r1++ < r2){
+                double fac = Math.pow((r1/r2),2);
+                app.view.matrix.setScale( 96*fac );
+                app.view.matrix.setRot( -Math.PI*fac, 1.00002*(1-fac), 0.7*(1-fac));
+                app.view.matrix.rotateMx();
+                app.view.setCamera();
+                app.drawCanvas();
+                Thread.sleep(40);
+            }
         }
         getUserInput();
+        TextureStack.loadTextureMaps();
     }
 }
 
@@ -127,14 +149,16 @@ class GuiFrame{
             }
             */
             public void mouseMoved(MouseEvent me) {
-                String info = "[mouseMoved   ]";
+                //String info = "[mouseMoved   ]";
                 cur_x = me.getX();
                 cur_y = me.getY() - height_offset;
-                info+="  x: " + cur_x + "  |y: " + cur_y;
-                label.setText(info);
+                //info+="  x: " + cur_x + "  |y: " + cur_y;
+                //label.setText(info);
             }
             public void mouseDragged(MouseEvent me) {
-                String info = "[mouseDragged ]";
+                //String info = "[mouseDragged ]";
+                if(Viewer.rawMesh.isEmpty()) return;
+
                 cur_dx = me.getX() -cur_x;
                 cur_dy = (me.getY() - height_offset) -cur_y;
                 cur_x = me.getX();
@@ -143,8 +167,8 @@ class GuiFrame{
                 view.matrix.setRot_relative( -cur_dy*.01, cur_dx*.02, 0);
                 view.setCamera();
                 drawCanvas();
-                info+="  x: " + cur_dx + "  |y: " + cur_dy;
-                label.setText(info);
+                //info+="  x: " + cur_dx + "  |y: " + cur_dy;
+                //label.setText(info);
             }
 
         });
