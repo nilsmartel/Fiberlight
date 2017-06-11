@@ -21,6 +21,7 @@ public class Parser {
             List<Vector> coordinates = new ArrayList<Vector>();
             List<Face> faces = new ArrayList<Face>();
             List<String> materials = new ArrayList<>();
+            String matFile = "";
             String activeMaterial = "";
 
             while ((line = bufferedReader.readLine()) != null){
@@ -82,6 +83,9 @@ public class Parser {
                 if(str[0].equals("usemtl")){
                     materials.add( str[1] );
                     activeMaterial = str[1];
+                }
+                if(str[0].equals("mtllib")){
+                    matFile = str[1];
                 }
             }
             fileReader.close();

@@ -4,7 +4,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.Scanner;
 
-// clear && javac Viewer.java && java Viewer && rm ./*.class
+/**
+ * TODO
+ *
+ * NORMAL CALCULATION METHOD
+ * TRANSITION / ANIMATION INTERFACE
+ * MATERIALS
+ * RECODE IDX CLASS
+ */
 
 class Viewer{
 
@@ -126,7 +133,7 @@ class GuiFrame{
         this.height= height;
         this.height_offset = this.getHeightOffset();
         this.can = new Canvas(width, height);
-        this.view = new Camera(width, height);
+        this.view = new Camera( this.can );
         this.frame = new JFrame();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setLayout(null);
