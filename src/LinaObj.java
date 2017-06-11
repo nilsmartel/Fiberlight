@@ -15,10 +15,23 @@ public class LinaObj{
   void setScale( double s ){
     this.scale = s;
   }
+  void setScale_relative( double s ){
+    this.scale*= s;
+  }
   void setRot( double x, double y, double z){
     this.rot[0] =x;
     this.rot[1] =y;
     this.rot[2] =z;
+  }
+  void setRot_relative( double x, double y, double z){
+    this.rot[0] +=x;
+    this.rot[1] +=y;
+    this.rot[2] +=z;
+  }
+  double[] copyRotation(){
+    double[] p = new double[3];
+    for(int i=0;i<3;i++) p[i] = this.rot[i];
+    return p;
   }
 
   double[] getOffset(){
@@ -36,7 +49,7 @@ public class LinaObj{
   }
 
   void rotateMx(){
-    double[][] mx = {
+    double[][] imx = {
       { 1, 0, 0},
       { 0, 1, 0},
       { 0, 0, 1}
@@ -68,11 +81,11 @@ public class LinaObj{
     };
 
     for(r=0;r<3;r++){
-      mx[0] = this.align( mx[0], rot[r] );
-      mx[1] = this.align( mx[1], rot[r] );
-      mx[2] = this.align( mx[2], rot[r] );
+      imx[0] = this.align( imx[0], rot[r] );
+      imx[1] = this.align( imx[1], rot[r] );
+      imx[2] = this.align( imx[2], rot[r] );
     }
-    this.mx = mx;
+    this.mx = imx;
   }
 
   Vector alignVector( Vector in ){
