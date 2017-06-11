@@ -1,5 +1,6 @@
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.Scanner;
 
@@ -41,49 +42,10 @@ class Viewer{
       app.drawCanvas();
       Thread.sleep(20);
     }
-
-    // |
-    // |  Replace these with better method
-    // |  Mesh xy = Parser2nd.parseObjFile( filepath );
-    // V
-    //Parser p = new Parser( filepath );
-    //app.setTitle( app.obj.name );
-    /*
-    int r1=1;
-    double r2=48;
-    app.clearIdx(192);
-    while(r1++ < r2){
-      //if(r1%4 == 0) app.clearIdx(192);
-      double fac = Math.pow((r1/r2),2);
-      app.scale = 96*fac;
-      Lina.setRot( -Math.PI*fac, 1.00002*(1-fac), 0.7*(1-fac));
-      Lina.rotateMx();
-      app.obj.alignToMatrix();
-      app.renderMesh();
-      app.can.redraw(true);
-      Thread.sleep(30);
-    }
-
-    double isi = 0;
-    while(true){
-      Thread.sleep(20);
-      Lina.rot[1] = Math.sin(isi)*Math.PI;
-      Lina.rot[0]+= 0.0001;
-      Lina.rot[2]+= 0.001;
-
-      isi+=0.01;
-      Lina.rotateMx();
-      app.obj.alignToMatrix();
-      //app.clearIdx(192);
-      app.renderMesh();
-      app.can.redraw(true);
-    }
-    */
   }
 }
 
 class Camera{
-  //All Data about
   DataMap renderPass;
   LinaObj matrix;
   int width, height;
@@ -100,21 +62,9 @@ class Camera{
     this.matrix = new LinaObj();
     this.renderPass = new DataMap(this.width, this.height);
   }
-  /*
-  void drawWireframe( Pixel col){
-    Idx bit = this.can.idx;
-    double[][] v;
-    for(int i=0; i<this.obj.face.length;i++){
-      v = this.obj.getTri(i);
-      for(int j=0; j<3; j++ ){
-        bit.drawLine( v[j], v[(j+1)%3], col);
-      }
-    }
-  }
-  */
+
   void setCamera(){
-    // try deleting 'this' keyword     \/
-    triData = Viewer.rawMesh.getTriData(this.matrix);
+    triData = Viewer.rawMesh.getTriData(matrix);
   }
   void renderMesh(){
     this.renderPass.clear();
@@ -193,6 +143,9 @@ class GuiFrame{
   Mesh obj;
   //double scale= 64;
 
+  int cur_x=0;
+  int cur_y=0;
+
   public GuiFrame(){
     this(512,512);
   }
@@ -211,6 +164,15 @@ class GuiFrame{
     this.label = new JLabel("Hello World");
     this.frame.getContentPane().setLayout(new BorderLayout());
     this.frame.getContentPane().add("South", label);
+
+    frame.addMouseMotionListener(new MouseMotionAdapter() {
+      public void mouseMoved(MouseEvent me) {
+        cur_x = me.getX();
+        cur_y = me.getY() - height_offset;
+        label.setText("x: " + cur_x + "  |y: " + cur_y);
+        //alsXYMouseLabel.repaint();
+      }
+    });
 
     this.frame.setVisible(true);
   }
