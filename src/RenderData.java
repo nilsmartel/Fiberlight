@@ -24,4 +24,7 @@ public class RenderData{
         nrm_y = v[i++];
         fresnel = v[i++];
     }
+    public Vector getUV(){
+        return new Vector(coord_u, coord_v);
+    }
 }

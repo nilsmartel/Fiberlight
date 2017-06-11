@@ -1,5 +1,5 @@
 
-public class Vector{
+public class Vector implements Comparable<Vector> {
     double[] value;
 
     public Vector(double a, double b, double c ){
@@ -21,6 +21,17 @@ public class Vector{
             value[i] = a[i];
     }
 
+    public Vector(Vector[] merge){
+        int len=0;
+        for( Vector v : merge )
+            len += v.value.length();
+        value = new double[len];
+        int i=0;
+        for( Vector v : merge )
+            for( double d : v )
+                value[i++] = d;
+    }
+
     double x(){
         return this.value[0];
     }
@@ -31,6 +42,19 @@ public class Vector{
 
     double z(){
         return (value.length < 3) ? 0 : this.value[2];
+    }
+
+    @Override
+    public int compareTo( Vector v ){
+        return Double.compare( this.value[1], v.value[1] );
+    }
+    @Override
+    public String toString(){
+        int i=0;
+        String s = "{ " + value[i++];
+        while(i<value.length)
+            s+= ", "+value[i++];
+        return  s + "}";
     }
 }
 

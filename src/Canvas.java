@@ -81,15 +81,6 @@ public class Canvas extends JPanel {
     private boolean reRender = true;
     public void paint(Graphics g){
         g.drawImage( this.idx.getImage(true), 0, 0, this);
-    /*
-    //g.drawImage( this.img, 0, 0, this);
-    if(this.reRender){
-      this.reRender = false;
-      g.drawImage( this.idx.getImage(true), 0, 0, this);
-    }else{
-      g.drawImage( this.idx.getImage(), 0, 0, this);
-    }
-    */
     }
 }
 
@@ -418,6 +409,10 @@ class Idx{
         this.data[m++] = p.b;
     }
 
+    void setPixelAtCoord( Vector v, Pixel p ){
+        setPixelAtCoord(v.x(),v.y(), p);
+    }
+
     void drawLine(Point a, Point b, Pixel col){
         Line l = new Line( a, b);
         while(l.next()){
@@ -507,6 +502,91 @@ class Idx{
             }
         }
         return n;
+    }
+
+    public Idx getResizedIdx_AntiAliased(int sx, int sy){
+        if(sx == width && sy == height ) return this;
+
+        if(sx <= width && sy <= height){
+            Idx n = new Idx(sx, sy);
+            double ax,ay;
+            double bx=0;
+            double by=0;
+
+            for(int y=0;y<sy;y++){
+                ay =  ((double)y/sy)*this.height;
+                for(int x=0; x<sx;x++){
+                    ax =  ((double)x/sx)*this.width;
+                    Pixel col = new Pixel(0,0,0);
+                    int i = 0;
+                    for(int v=(int)by; v<ay; v++ ){
+                        for(int u=(int)bx; u<ax; u++ ){
+                            col.add( getPixel(u,v) );
+                            i++;
+                        }
+                    }
+                    col.divide(i);
+                    n.setPixel(x,y, col );
+                    bx = ax;
+                }
+                bx=0;
+                by = ay;
+            }
+            return n;
+        }
+
+        if(sx >= width && sy >= height){
+            Idx n = new Idx(sx, sy);
+            double fy = (double)sy/height;
+            double fx = (double)sx/width;
+            double rx=0;
+            double ry=0;
+            double stepx=0;
+            double fac_y=0;
+            double stepy=0;
+            int ay=0;
+            int ax=0;
+            Pixel col1 = new Pixel(0,0,0);
+            Pixel col2 = new Pixel(0,0,0);
+            Pixel p00,p01,p10,p11;
+
+            p00=getPixel(0,0);
+            for(int y=0;y<height;y++){
+                p01=getPixel(0,y+1);
+                ry+=fy;
+                while(ay<ry){
+                    col1.setOff();
+                    fac_y = stepy / fy;
+                    col1.add( p00, 1-fac_y );
+                    col1.add( p01, fac_y );
+
+                    p10=getPixel(x+1,y);
+                    ax=0;
+                    stepx=0;
+                    for(int x=0; x<width; x++){
+                        p11=getPixel(x+1,y+1);
+                        col2.setOff();
+                        col2.add( p10, 1-fac_y );
+                        col2.add( p11, fac_y );
+                        rx+=fx;
+                        while(ax<rx){
+                            n.setPixel(ax++,ay, Pixel.blendPixels(col1, col2, stepx/fx ) );
+                            stepx+=1;
+                        }
+                        col1=col2;
+                        p10=p11;
+                        stepx=ax-rx;
+                    }
+                    stepy+=1;
+                    ay++;
+                }
+                p00=p01;
+                stepy=ay-ry;
+            }
+
+            return n;
+        }
+        return getResizedIdx(sx,sy);
     }
 
     public void fromBufferedImage(BufferedImage img){
