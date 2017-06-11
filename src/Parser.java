@@ -20,6 +20,8 @@ public class Parser {
             List<Vector> normals = new ArrayList<Vector>();
             List<Vector> coordinates = new ArrayList<Vector>();
             List<Face> faces = new ArrayList<Face>();
+            List<String> materials = new ArrayList<>();
+            String activeMaterial = "";
 
             while ((line = bufferedReader.readLine()) != null){
                 // [parse] -> line :: String
@@ -62,20 +64,24 @@ public class Parser {
                 if(str[0].equals("f")){
                     if(str.length == 4 ){
                         faces.add(
-                                new Face( str[1], str[2], str[3] )
+                                new Face( str[1], str[2], str[3], activeMaterial )
                         );
                     }
                     if(str.length == 5 ){
                         faces.add(
-                                new Face(str[1], str[2], str[3] )
+                                new Face(str[1], str[2], str[3], activeMaterial )
                         );
 
                         faces.add(
-                                new Face(str[3], str[4], str[1] )
+                                new Face(str[3], str[4], str[1], activeMaterial )
                         );
                     }
 
                     continue;
+                }
+                if(str[0].equals("usemtl")){
+                    materials.add( str[1] );
+                    activeMaterial = str[1];
                 }
             }
             fileReader.close();

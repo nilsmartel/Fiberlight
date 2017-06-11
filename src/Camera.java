@@ -36,7 +36,8 @@ public class Camera{
         }
     }
 
-    void rasterTri(double[][] v, int vertId ){
+
+    void rasterTri(double[][] v){
         int len = v[0].length;
         int up = 0;
         int down = 0;
