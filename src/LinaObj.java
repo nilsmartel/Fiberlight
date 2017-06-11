@@ -75,6 +75,19 @@ public class LinaObj{
     this.mx = mx;
   }
 
+  Vector alignVector( Vector in ){
+    Vector v = new Vector( 0, 0, 0 );
+    for(int a=0;a<3;a++){
+      for(int b=0;b<3;b++){
+        v.value[b]+= this.mx[a][b]*in.value[a];
+      }
+    }
+    for(int b=0;b<3;b++){
+      v.value[b]*= this.scale;
+    }
+    return v;
+  }
+
   double[] align( double[] in, double[][] mx){
     double[] v = {0,0,0};
     for(int a=0;a<3;a++){

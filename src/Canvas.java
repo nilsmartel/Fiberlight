@@ -328,8 +328,9 @@ class Idx{
   }
 
   public Pixel getChoordPixel(double x, double y){
-    int m = 4*(((int)(this.width*x))%this.width + (((int)(this.height*y))%this.height)*this.width);
-    return new Pixel( this.data[m++], this.data[m++], this.data[m]);
+    return this.getPixel(x*this.width, y*this.height );
+    //int m = 4*( ( (int)(this.width*x) )%this.width + (((int)(this.height*y))%this.height)*this.width);
+    //return new Pixel( this.data[m++], this.data[m++], this.data[m] );
   }
 
   public Pixel getPixel(int x, int y){

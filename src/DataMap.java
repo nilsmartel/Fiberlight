@@ -38,7 +38,7 @@ public class DataMap{
     int y = (int)v[1];
     if( x>= width || y>= height || x<0 || y<0) return;
     if( isPixel[x][y]){
-      if(map[x][y].depth < v[2])  map[x][y].putData( v );
+      if(map[x][y].depth > v[2])  map[x][y].putData( v );
     }else{
       isPixel[x][y] = true;
       map[x][y] = new RenderData( v );
