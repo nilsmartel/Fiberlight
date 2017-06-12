@@ -52,26 +52,18 @@ public class Model {
 
     public TriNode[] getTriData( LinaObj lin ){
         if(isEmpty()) return new TriNode[0];
+        lin.rotateMx();
 
         TriNode[] tri = new TriNode[this.face.length];
-        lin.rotateMx();
         Vector[] tVert = new Vector[this.vert.length];
         Vector[] tNrm = new Vector[this.nrm.length];
 
-        Vector[] nrm_alt = new Vector[this.c_nrm.length];
-
         for(int i=0;i< this.vert.length;i++){
-            tVert[i] = lin.alignVector(this.vert[i] );
+            tVert[i] = lin.alignVectorScaled(this.vert[i] );
         }
 
-        if(!customNormals){
-            for(int i=0;i< this.nrm.length;i++){
-                tNrm[i] = lin.alignVector( this.nrm[i] );
-            }
-        }else{
-            for(int i=0;i< this.c_nrm.length;i++){
-                nrm_alt[i] = lin.alignVector( this.c_nrm[i] );
-            }
+        for(int i=0;i< this.nrm.length;i++){
+            tNrm[i] = lin.alignVector( this.nrm[i] );
         }
 
         if(!customNormals){
@@ -93,19 +85,20 @@ public class Model {
             }
         }else{
             for(int i=0; i< this.face.length; i++){
+                Vector nrm_alt = lin.alignVector( this.c_nrm[i] );
                 tri[i] = new TriNode(
                         i,
                         tVert[ this.face[i].id[0][0] ],
                         this.uv[ this.face[i].id[0][1] ],
-                        nrm_alt[i],
+                        nrm_alt,
 
                         tVert[ this.face[i].id[1][0] ],
                         this.uv[ this.face[i].id[1][1] ],
-                        nrm_alt[i],
+                        nrm_alt,
 
                         tVert[ this.face[i].id[2][0] ],
                         this.uv[ this.face[i].id[2][1] ],
-                        nrm_alt[i]
+                        nrm_alt
                 );
             }
         }

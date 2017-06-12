@@ -6,14 +6,9 @@ public class PixelShader{
         return new Pixel(grey,grey,grey);
     }
 
-    static Pixel normal( RenderData pass ){
+    static Pixel nrm( RenderData pass ){
         //int grey = 64 + (int)(128*pass.fresnel);
         return new Pixel( 64+pass.nrm_x*128,  64+pass.nrm_y*128,  64+pass.fresnel*128 );
-    }
-
-    static Pixel nrm( RenderData pass ){
-        // { +90 <-> -90 }
-        return new Pixel( pass.nrm_x+128,  pass.nrm_y*128,  pass.fresnel+128 );
     }
 
     static Pixel depth( RenderData pass ){

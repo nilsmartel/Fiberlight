@@ -98,14 +98,20 @@ public class LinaObj{
 
     Vector alignVector( Vector in ){
         Vector v = new Vector( 0, 0, 0 );
-        for(int a=0;a<3;a++){
-            for(int b=0;b<3;b++){
+        for( int a=0; a<3;a++ )
+            for( int b = 0; b < 3; b++ )
+                v.value[b] += this.mx[a][b] * in.value[a];
+
+        return v;
+    }
+
+    Vector alignVectorScaled( Vector in ){
+        Vector v = new Vector( 0, 0, 0 );
+        for(int a=0; a<3; a++)
+            for(int b=0; b<3; b++)
                 v.value[b]+= this.mx[a][b]*in.value[a];
-            }
-        }
-        for(int b=0;b<3;b++){
+        for( int b=0; b<3; b++ )
             v.value[b]*= this.scale;
-        }
         return v;
     }
 

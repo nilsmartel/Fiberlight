@@ -1,10 +1,7 @@
 
 public class Camera {
-    Canvas can = null;
-    Idx image  = null;
     DataMap renderPass;
     LinaObj matrix;
-    //int width, height;
     double scale = 32;
     TriNode[] triData;
 
@@ -13,17 +10,8 @@ public class Camera {
     }
 
     public Camera(int sx, int sy){
-        //this.width = sx;
-        //this.height= sy;
         this.matrix = new LinaObj();
         this.renderPass = new DataMap(sx, sy);
-    }
-
-    public Camera( Canvas can ){
-        this.can = can;
-        this.image = can.idx;
-        this.renderPass = new DataMap(can.getWidth(), can.getHeight() );
-        this.matrix = new LinaObj();
     }
 
     int getWidth(){
@@ -51,8 +39,6 @@ public class Camera {
             }
             this.rasterTri( t.v, t.id );
         }
-
-        if(this.image!=null) renderShader();
     }
 
     void rasterTri(double[][] v, int vertId){
@@ -105,21 +91,7 @@ public class Camera {
         }
     }
 
-    void renderShader(){
-        Pixel bgColor = new Pixel( 8, 8, 8);
 
-        for(int x=0; x< this.getWidth(); x++){
-            for(int y=0; y< this.getHeight(); y++) {
-                if(this.renderPass.isPixel[x][y]) {
-                    this.image.setPixel(x,y, PixelShader.nrm( this.renderPass.map[x][y] ) );
-                }else{
-                    this.image.setPixel(x,y, bgColor );
-                }
-            }
-        }
-
-        if(this.can != null )   this.can.redraw();
-    }
 
 }
 

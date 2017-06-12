@@ -11,3 +11,4 @@ src/obj
 back/
 ref/
 *.obj
+*.class

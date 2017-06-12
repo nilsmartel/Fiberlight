@@ -136,8 +136,8 @@ class GuiFrame{
         this.width = width;
         this.height= height;
         this.height_offset = this.getHeightOffset();
-        this.can = new Canvas(width, height);
-        this.view = new Camera( this.can );
+        this.can   =new Canvas( width, height );
+        this.view  = new Camera( width, height );
         this.frame = new JFrame();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setLayout(null);
@@ -223,18 +223,18 @@ class GuiFrame{
     }
 
     void drawCanvas(){
-        /*
+
         Pixel bgColor = new Pixel( 8, 8, 8);
 
         for(int x=0; x< this.can.getWidth(); x++){
             for(int y=0; y< this.can.getHeight(); y++){
                 if(this.view.renderPass.isPixel[x][y]){
-                    this.can.idx.setPixel(x,y, PixelShader.depth( this.view.renderPass.map[x][y] ) );
+                    this.can.idx.setPixel(x,y, PixelShader.nrm( this.view.renderPass.map[x][y] ) );
                 }else{
                     this.can.idx.setPixel(x,y, bgColor );
                 }
             }
         }
-        this.can.redraw();*/
+        this.can.redraw();
     }
 }
