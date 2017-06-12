@@ -35,7 +35,7 @@ public class Camera {
     }
 
     void setCamera(){
-        triData = Viewer.rawMesh.getTriData( this.matrix);
+        triData = Viewer.rawMesh.getTriData( this.matrix );
         renderMesh();
     }
     void renderMesh(){
@@ -109,9 +109,9 @@ public class Camera {
         Pixel bgColor = new Pixel( 8, 8, 8);
 
         for(int x=0; x< this.getWidth(); x++){
-            for(int y=0; y< this.getHeight(); y++){
-                if(this.renderPass.isPixel[x][y]){
-                    this.image.setPixel(x,y, PixelShader.depth( this.renderPass.map[x][y] ) );
+            for(int y=0; y< this.getHeight(); y++) {
+                if(this.renderPass.isPixel[x][y]) {
+                    this.image.setPixel(x,y, PixelShader.nrm( this.renderPass.map[x][y] ) );
                 }else{
                     this.image.setPixel(x,y, bgColor );
                 }

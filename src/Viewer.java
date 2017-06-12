@@ -149,16 +149,6 @@ class GuiFrame{
         this.frame.getContentPane().add("South", label);
 
         frame.addMouseMotionListener(new MouseMotionAdapter() {
-            /*
-            public void mousePressed(MouseEvent me) {
-              //             [             ]
-              String info = "[mousePressed ]";
-              cur_x = me.getX();
-              cur_y = me.getY() - height_offset;
-              info+="  x: " + cur_x + "  |y: " + cur_y;
-              label.setText(info);
-            }
-            */
             public void mouseMoved(MouseEvent me) {
                 //String info = "[mouseMoved   ]";
                 cur_x = me.getX();
@@ -233,6 +223,7 @@ class GuiFrame{
     }
 
     void drawCanvas(){
+        /*
         Pixel bgColor = new Pixel( 8, 8, 8);
 
         for(int x=0; x< this.can.getWidth(); x++){
@@ -244,6 +235,6 @@ class GuiFrame{
                 }
             }
         }
-        this.can.redraw();
+        this.can.redraw();*/
     }
 }

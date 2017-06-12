@@ -19,10 +19,13 @@ public class Model {
     Vector[] c_nrm;
     boolean customNormals=false;
     public void setUpCustomNormals(){
-        c_nrm = new Vector[face.length];
-
-        for(int i=0;i<face.length;i++) c_nrm[i] = MeshAlgorithm.getSurfaceNormal(getTriangle(i));
-        customNormals=true;
+        customNormals= !customNormals;
+        if (customNormals){
+            c_nrm = new Vector[face.length];
+            for(int i=0;i<face.length;i++) c_nrm[i] = MeshAlgorithm.getSurfaceNormal(getTriangle(i));
+        }else{
+            c_nrm = new Vector[0];
+        }
     }
 
     public Model(){
@@ -55,12 +58,20 @@ public class Model {
         Vector[] tVert = new Vector[this.vert.length];
         Vector[] tNrm = new Vector[this.nrm.length];
 
+        Vector[] nrm_alt = new Vector[this.c_nrm.length];
+
         for(int i=0;i< this.vert.length;i++){
             tVert[i] = lin.alignVector(this.vert[i] );
         }
 
-        for(int i=0;i< this.nrm.length;i++){
-            tNrm[i] = lin.alignVector( this.nrm[i] );
+        if(!customNormals){
+            for(int i=0;i< this.nrm.length;i++){
+                tNrm[i] = lin.alignVector( this.nrm[i] );
+            }
+        }else{
+            for(int i=0;i< this.c_nrm.length;i++){
+                nrm_alt[i] = lin.alignVector( this.c_nrm[i] );
+            }
         }
 
         if(!customNormals){
@@ -86,15 +97,15 @@ public class Model {
                         i,
                         tVert[ this.face[i].id[0][0] ],
                         this.uv[ this.face[i].id[0][1] ],
-                        c_nrm[i],
+                        nrm_alt[i],
 
                         tVert[ this.face[i].id[1][0] ],
                         this.uv[ this.face[i].id[1][1] ],
-                        c_nrm[i],
+                        nrm_alt[i],
 
                         tVert[ this.face[i].id[2][0] ],
                         this.uv[ this.face[i].id[2][1] ],
-                        c_nrm[i]
+                        nrm_alt[i]
                 );
             }
         }

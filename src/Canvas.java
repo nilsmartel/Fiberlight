@@ -347,12 +347,7 @@ class Idx{
     }
 
     public Pixel getPixel(double x, double y){
-        Pixel p = new Pixel();
-        int m = this.mx(x,y);
-        p.r = this.data[m++];
-        p.g = this.data[m++];
-        p.b = this.data[m++];
-        return p;
+        return getPixel((int)x,(int)y);
     }
 
     public Pixel getPixel(int m){
