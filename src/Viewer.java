@@ -36,10 +36,7 @@ class Viewer{
                 }
                 continue;
             }
-            if(txt.equals("nrm")){
-                rawMesh.setUpCustomNormals();
-                continue;
-            }
+
             if(txt.equals("rot")){
                 double a = (scanner.nextInt()*Math.PI)/180;
                 double b = (scanner.nextInt()*Math.PI)/180;
@@ -75,11 +72,9 @@ class Viewer{
                 System.out.println(" { "+x+", "+y+", "+z+"}");
             }
         }
-        //int age = scanner.nextInt();
-        //return textInput;
     }
 
-    public static Model rawMesh;
+    public static Mesh rawMesh;
     public static GuiFrame app;
 
     public static void main(String[] args) throws InterruptedException{
@@ -90,11 +85,9 @@ class Viewer{
         }
 
         rawMesh = Parser.parseObjFile( filepath );
-        //app.setTitle( rawMesh.name );
         if(rawMesh.isEmpty()){
             System.out.println("import .obj file using 'open' command");
         }else{
-            //app = new GuiFrame(512,512);
             app.setTitle( rawMesh.name );
             int r1=1;
             double r2=32;

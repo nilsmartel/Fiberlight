@@ -1,14 +1,14 @@
 
 import java.util.*;
 
-public class Model {
+public class Mesh {
     String name;
     Vector[] vert;
     Vector[] nrm;
     Vector[] uv;
     Face[] face;
 
-    public Model(String title, List<Vector> v, List<Vector> vn, List<Vector> vt, List<Face> f){
+    public Mesh(String title, List<Vector> v, List<Vector> vn, List<Vector> vt, List<Face> f){
         name=title;
         vert = v.toArray(new Vector[ v.size() ] );
         nrm = vn.toArray(new Vector[ vn.size() ] );
@@ -16,19 +16,7 @@ public class Model {
         face = f.toArray(new Face[ f.size() ] );
     }
 
-    Vector[] c_nrm;
-    boolean customNormals=false;
-    public void setUpCustomNormals(){
-        customNormals= !customNormals;
-        if (customNormals){
-            c_nrm = new Vector[face.length];
-            for(int i=0;i<face.length;i++) c_nrm[i] = MeshAlgorithm.getSurfaceNormal(getTriangle(i));
-        }else{
-            c_nrm = new Vector[0];
-        }
-    }
-
-    public Model(){
+    public Mesh(){
         name="Fiberlight";
         vert = new Vector[0];
         nrm = new Vector[0];
@@ -66,41 +54,21 @@ public class Model {
             tNrm[i] = lin.alignVector( this.nrm[i] );
         }
 
-        if(!customNormals){
-            for(int i=0; i< this.face.length; i++){
-                tri[i] = new TriNode(
-                        i,
-                        tVert[ this.face[i].id[0][0] ],
-                        this.uv[ this.face[i].id[0][1] ],
-                        tNrm[ this.face[i].id[0][2] ],
+        for(int i=0; i< this.face.length; i++){
+            tri[i] = new TriNode(
+                    i,
+                    tVert[ this.face[i].id[0][0] ],
+                    this.uv[ this.face[i].id[0][1] ],
+                    tNrm[ this.face[i].id[0][2] ],
 
-                        tVert[ this.face[i].id[1][0] ],
-                        this.uv[ this.face[i].id[1][1] ],
-                        tNrm[ this.face[i].id[1][2] ],
+                    tVert[ this.face[i].id[1][0] ],
+                    this.uv[ this.face[i].id[1][1] ],
+                    tNrm[ this.face[i].id[1][2] ],
 
-                        tVert[ this.face[i].id[2][0] ],
-                        this.uv[ this.face[i].id[2][1] ],
-                        tNrm[ this.face[i].id[2][2] ]
-                );
-            }
-        }else{
-            for(int i=0; i< this.face.length; i++){
-                Vector nrm_alt = lin.alignVector( this.c_nrm[i] );
-                tri[i] = new TriNode(
-                        i,
-                        tVert[ this.face[i].id[0][0] ],
-                        this.uv[ this.face[i].id[0][1] ],
-                        nrm_alt,
-
-                        tVert[ this.face[i].id[1][0] ],
-                        this.uv[ this.face[i].id[1][1] ],
-                        nrm_alt,
-
-                        tVert[ this.face[i].id[2][0] ],
-                        this.uv[ this.face[i].id[2][1] ],
-                        nrm_alt
-                );
-            }
+                    tVert[ this.face[i].id[2][0] ],
+                    this.uv[ this.face[i].id[2][1] ],
+                    tNrm[ this.face[i].id[2][2] ]
+            );
         }
 
         return tri;

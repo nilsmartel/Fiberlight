@@ -8,7 +8,7 @@ import java.util.*;
 public class Parser {
 
     // void -> Mesh
-    public static Model parseObjFile( String fileURL ){
+    public static Mesh parseObjFile( String fileURL ){
         try{
             File file = new File(fileURL);
             FileReader fileReader = new FileReader(file);
@@ -90,10 +90,10 @@ public class Parser {
             }
             fileReader.close();
 
-            return new Model( title, verts, normals, coordinates, faces );
+            return new Mesh( title, verts, normals, coordinates, faces );
         }catch (IOException e){
             e.printStackTrace();
-            return new Model();
+            return new Mesh();
         }
 
     }

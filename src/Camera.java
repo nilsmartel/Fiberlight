@@ -2,7 +2,6 @@
 public class Camera {
     DataMap renderPass;
     LinaObj matrix;
-    double scale = 32;
     TriNode[] triData;
 
     public Camera(){
