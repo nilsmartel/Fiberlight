@@ -11,7 +11,8 @@ it's a personal project I'm working on, there are no concerns about serious perf
 
 At the moment it's only supporting the .obj file format.
 
-compiling and running
+# Compiling and running
+go to `src` directory and
 
   $ javac Viewer.java
 
