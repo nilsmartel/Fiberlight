@@ -1,6 +1,9 @@
 # Fiberlight
 
-3D Rendering Engine written in Java
+Cross platform 3D Rendering Engine written in Java.
+Entirely using the CPU.
+All written from scratch.
+
 
 ![Screenshot of runnning application'](./screenshot.png)
 
