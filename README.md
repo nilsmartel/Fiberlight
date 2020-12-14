@@ -2,6 +2,8 @@
 
 3D Rendering Engine written in Java
 
+![Screenshot of runnning application'](./screenshot.png)
+
 ~~might be changed to C-language later~~
 _I'm mentally in a much better place now, thanks for asking_
 
