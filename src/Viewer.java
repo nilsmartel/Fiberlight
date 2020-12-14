@@ -80,11 +80,13 @@ class Viewer{
     public static GuiFrame app;
 
     public static void main(String[] args) throws InterruptedException{
-        app = new GuiFrame(512,512);
-        String filepath = "/Users/nilsmartel/git/Fiberlight/src/suz.obj";
-        if(args.length > 0){
-            filepath = args[0];
+        if (args.length != 1) {
+            System.out.println("Expected exactly 1 argument");
+            System.exit(1);
         }
+
+        app = new GuiFrame(512,512);
+        String filepath = args[0];
 
         rawMesh = Parser.parseObjFile( filepath );
         if(rawMesh.isEmpty()){
