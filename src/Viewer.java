@@ -72,6 +72,8 @@ class Viewer{
                 System.out.println(" { "+x+", "+y+", "+z+"}");
             }
         }
+
+        scanner.close();
     }
 
     public static Mesh rawMesh;
