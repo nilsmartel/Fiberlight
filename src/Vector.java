@@ -2,94 +2,97 @@
 public class Vector implements Comparable<Vector> {
     double[] value;
 
-    public Vector(double a, double b, double c ){
+    public Vector(double a, double b, double c) {
         value = new double[3];
-        value[0]=a;
-        value[1]=b;
-        value[2]=c;
+        value[0] = a;
+        value[1] = b;
+        value[2] = c;
     }
 
-    public Vector(double a, double b ){
+    public Vector(double a, double b) {
         value = new double[2];
-        value[0]=a;
-        value[1]=b;
+        value[0] = a;
+        value[1] = b;
     }
 
-    public Vector(double[] a){
+    public Vector(double[] a) {
         value = new double[a.length];
-        for(int i=0;i<a.length;i++)
+        for (int i = 0; i < a.length; i++)
             value[i] = a[i];
     }
 
-    public Vector(Vector[] merge){
-        int len=0;
-        for( Vector v : merge )
+    public Vector(Vector[] merge) {
+        int len = 0;
+        for (Vector v : merge)
             len += v.value.length;
         value = new double[len];
-        int i=0;
-        for( Vector v : merge )
-            for( double d : v.value )
+        int i = 0;
+        for (Vector v : merge)
+            for (double d : v.value)
                 value[i++] = d;
     }
 
-    public int size(){
+    public int size() {
         return this.value.length;
     }
 
-    public Vector add( Vector obj ){
-        if(obj.size() != this.size() ) return new Vector(0,0,0);
+    public Vector add(Vector obj) {
+        if (obj.size() != this.size())
+            return new Vector(0, 0, 0);
 
         double[] v = new double[this.size()];
-        for(int i=0;i<v.length;i++){
-            v[i] = this.value[i]+obj.value[i];
+        for (int i = 0; i < v.length; i++) {
+            v[i] = this.value[i] + obj.value[i];
         }
         return new Vector(v);
     }
 
-    public Vector subtract( Vector obj ){
-        if(obj.size() != this.size() ) return new Vector(0,0,0);
+    public Vector subtract(Vector obj) {
+        if (obj.size() != this.size())
+            return new Vector(0, 0, 0);
 
         double[] v = new double[this.size()];
-        for(int i=0;i<v.length;i++){
-            v[i] = this.value[i]-obj.value[i];
+        for (int i = 0; i < v.length; i++) {
+            v[i] = this.value[i] - obj.value[i];
         }
         return new Vector(v);
     }
 
-    public Vector multiply( Vector obj ){
-        if(obj.size() != this.size() ) return new Vector(0,0,0);
+    public Vector multiply(Vector obj) {
+        if (obj.size() != this.size())
+            return new Vector(0, 0, 0);
 
         double[] v = new double[this.size()];
-        for(int i=0;i<v.length;i++){
-            v[i] = this.value[i]-obj.value[i];
+        for (int i = 0; i < v.length; i++) {
+            v[i] = this.value[i] - obj.value[i];
         }
         return new Vector(v);
     }
 
-    double x(){
+    double x() {
         return this.value[0];
     }
 
-    double y(){
+    double y() {
         return this.value[1];
     }
 
-    double z(){
+    double z() {
         return (value.length < 3) ? 0 : this.value[2];
     }
 
-    double x( double i ){
-        this.value[0]=i;
+    double x(double i) {
+        this.value[0] = i;
         return this.value[0];
     }
 
-    double y( double i ){
-        this.value[1]=i;
+    double y(double i) {
+        this.value[1] = i;
         return this.value[1];
     }
 
-    double z( double i ){
-        if(this.value.length > 2){
+    double z(double i) {
+        if (this.value.length > 2) {
             this.value[2] = i;
             return this.value[2];
         }
@@ -97,51 +100,54 @@ public class Vector implements Comparable<Vector> {
     }
 
     @Override
-    public int compareTo( Vector v ){
-        return Double.compare( this.value[1], v.value[1] );
+    public int compareTo(Vector v) {
+        return Double.compare(this.value[1], v.value[1]);
     }
+
     @Override
-    public String toString(){
-        int i=0;
+    public String toString() {
+        int i = 0;
         String s = "{ " + value[i++];
-        while(i<value.length)
-            s+= ", "+value[i++];
-        return  s + "}";
+        while (i < value.length)
+            s += ", " + value[i++];
+        return s + "}";
     }
 }
 
-class TriNode{
+class TriNode {
     double[][] v;
     int id;
-    public TriNode( int id, Vector a0,Vector a1,Vector a2,Vector b0,Vector b1,Vector b2,Vector c0,Vector c1,Vector c2){
+
+    public TriNode(int id, Vector a0, Vector a1, Vector a2, Vector b0, Vector b1, Vector b2, Vector c0, Vector c1,
+            Vector c2) {
         this.id = id;
         v = new double[3][8];
-        int i=0;
+        int i = 0;
         v[0][i] = a0.value[i++];
         v[0][i] = a0.value[i++];
         v[0][i] = a0.value[i++];
-        v[0][i] = a1.value[i++ -3];
-        v[0][i] = a1.value[i++ -3];
-        v[0][i] = a2.value[i++ -5];
-        v[0][i] = a2.value[i++ -5];
-        v[0][i] = a2.value[i   -5];
-        i=0;
+        v[0][i] = a1.value[i++ - 3];
+        v[0][i] = a1.value[i++ - 3];
+        v[0][i] = a2.value[i++ - 5];
+        v[0][i] = a2.value[i++ - 5];
+        v[0][i] = a2.value[i - 5];
+        i = 0;
         v[1][i] = b0.value[i++];
         v[1][i] = b0.value[i++];
         v[1][i] = b0.value[i++];
-        v[1][i] = b1.value[i++ -3];
-        v[1][i] = b1.value[i++ -3];
-        v[1][i] = b2.value[i++ -5];
-        v[1][i] = b2.value[i++ -5];
-        v[1][i] = b2.value[i   -5];
-        i=0;
+        v[1][i] = b1.value[i++ - 3];
+        v[1][i] = b1.value[i++ - 3];
+        v[1][i] = b2.value[i++ - 5];
+        v[1][i] = b2.value[i++ - 5];
+        v[1][i] = b2.value[i - 5];
+        i = 0;
         v[2][i] = c0.value[i++];
         v[2][i] = c0.value[i++];
         v[2][i] = c0.value[i++];
-        v[2][i] = c1.value[i++ -3];
-        v[2][i] = c1.value[i++ -3];
-        v[2][i] = c2.value[i++ -5];
-        v[2][i] = c2.value[i++ -5];
-        v[2][i] = c2.value[i   -5];
+        v[2][i] = c1.value[i++ - 3];
+        v[2][i] = c1.value[i++ - 3];
+        v[2][i] = c2.value[i++ - 5];
+        v[2][i] = c2.value[i++ - 5];
+        v[2][i] = c2.value[i - 5];
     }
 }

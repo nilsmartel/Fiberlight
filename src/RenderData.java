@@ -1,11 +1,10 @@
 
-
-public class RenderData{
+public class RenderData {
     double depth, coord_u, coord_v, nrm_x, nrm_y, fresnel;
     int id;
 
-    public RenderData( double[] v, int id){
-        this.id=id;
+    public RenderData(double[] v, int id) {
+        this.id = id;
         int i = 2;
         depth = v[i++];
         coord_u = v[i++];
@@ -14,8 +13,9 @@ public class RenderData{
         nrm_y = v[i++];
         fresnel = v[i++];
     }
-    public void putData( double[] v, int id){
-        this.id=id;
+
+    public void putData(double[] v, int id) {
+        this.id = id;
         int i = 2;
         depth = v[i++];
         coord_u = v[i++];
@@ -24,7 +24,8 @@ public class RenderData{
         nrm_y = v[i++];
         fresnel = v[i++];
     }
-    public Vector getUV(){
+
+    public Vector getUV() {
         return new Vector(coord_u, coord_v);
     }
 }
