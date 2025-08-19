@@ -1,5 +1,5 @@
 
-public class MeshAlgorithm {
+public class MeshUtils {
 
     public static Vector getSurfaceNormal(Vector[] tri) {
         Vector nrm = new Vector(0, 0, 0);
