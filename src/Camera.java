@@ -164,7 +164,7 @@ class Projector extends Camera {
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (this.renderPass.isPixel[x][y]) {
+                if (this.renderPass.isPixelSet[x][y]) {
                     des.setPixelAtCoord(this.renderPass.map[x][y].getUV(), src.getPixel(x, y));
                     // Next step is filling the spaces in between
                 }

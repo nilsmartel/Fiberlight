@@ -177,7 +177,7 @@ class GuiFrame {
 
     int getHeightOffset() {
         String os_name = System.getProperty("os.name");
-        if (os_name.indexOf("Mac OS X") >= 0) {
+        if (os_name.contains("Mac OS X")) {
             return 22;
         }
         return 0;
@@ -230,7 +230,7 @@ class GuiFrame {
 
         for (int x = 0; x < this.can.getWidth(); x++) {
             for (int y = 0; y < this.can.getHeight(); y++) {
-                if (this.view.renderPass.isPixel[x][y]) {
+                if (this.view.renderPass.isPixelSet[x][y]) {
                     this.can.idx.setPixel(x, y, PixelShader.nrm(this.view.renderPass.map[x][y]));
                 } else {
                     this.can.idx.setPixel(x, y, bgColor);
