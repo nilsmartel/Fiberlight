@@ -1,4 +1,8 @@
-
+/**
+ * Camera-like abstraction for rendering 3D meshes into an image.
+ * This class manages the projection of 3D triangles onto a 2D plane,
+ * and is used as the entrypoint for rendering / image generation
+ */
 public class Camera {
     DataMap renderPass;
     LinaObj matrix;
@@ -41,6 +45,14 @@ public class Camera {
         }
     }
 
+    /**
+     * Rasterizes a triangle defined by its vertices in the 2D plane.
+     * The vertices are expected to be in the format [x, y, z] where
+     * x,y and z are the coordinates of the vertex.
+     *
+     * @param v    The vertices of the triangle.
+     * @param vertId The identifier for the triangle.
+     */
     void rasterTri(double[][] v, int vertId) {
         int len = v[0].length;
         int up = 0;
