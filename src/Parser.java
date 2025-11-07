@@ -37,14 +37,24 @@ public class Parser {
                 }
                 // Vertex
                 if (str[0].equals("v")) {
-                    verts.add(new Vector(Double.parseDouble(str[1]), Double.parseDouble(str[2]),
-                            Double.parseDouble(str[3])));
+                    verts.add(
+                        new Vector(
+                            Double.parseDouble(str[1]),
+                            Double.parseDouble(str[2]),
+                            Double.parseDouble(str[3])
+                        )
+                    );
                     continue;
                 }
                 // Vertex Normals
                 if (str[0].equals("vn")) {
-                    normals.add(new Vector(Double.parseDouble(str[1]), Double.parseDouble(str[2]),
-                            Double.parseDouble(str[3])));
+                    normals.add(
+                        new Vector(
+                            Double.parseDouble(str[1]),
+                            Double.parseDouble(str[2]),
+                            Double.parseDouble(str[3])
+                        )
+                    );
                     continue;
                 }
                 // UV Coordinates

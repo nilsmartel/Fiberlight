@@ -118,8 +118,18 @@ class TriNode {
     double[][] v;
     int id;
 
-    public TriNode(int id, Vector a0, Vector a1, Vector a2, Vector b0, Vector b1, Vector b2, Vector c0, Vector c1,
-            Vector c2) {
+    public TriNode(
+        int id,
+        Vector a0,
+        Vector a1,
+        Vector a2,
+        Vector b0,
+        Vector b1,
+        Vector b2,
+        Vector c0,
+        Vector c1,
+        Vector c2
+    ) {
         this.id = id;
         v = new double[3][8];
         int i = 0;

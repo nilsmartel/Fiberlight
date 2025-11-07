@@ -56,12 +56,20 @@ public class Mesh {
         }
 
         for (int i = 0; i < this.face.length; i++) {
-            tri[i] = new TriNode(i, tVert[this.face[i].id[0][0]], this.uv[this.face[i].id[0][1]],
-                    tNrm[this.face[i].id[0][2]],
+            tri[i] = new TriNode(
+                i,
+                tVert[this.face[i].id[0][0]],
+                this.uv[this.face[i].id[0][1]],
+                tNrm[this.face[i].id[0][2]],
 
-                    tVert[this.face[i].id[1][0]], this.uv[this.face[i].id[1][1]], tNrm[this.face[i].id[1][2]],
+                tVert[this.face[i].id[1][0]],
+                this.uv[this.face[i].id[1][1]],
+                tNrm[this.face[i].id[1][2]],
 
-                    tVert[this.face[i].id[2][0]], this.uv[this.face[i].id[2][1]], tNrm[this.face[i].id[2][2]]);
+                tVert[this.face[i].id[2][0]],
+                this.uv[this.face[i].id[2][1]],
+                tNrm[this.face[i].id[2][2]]
+            );
         }
 
         return tri;
@@ -101,12 +109,20 @@ public class Mesh {
         }
 
         for (int i = 0; i < this.face.length; i++) {
-            tri[i] = new TriNode(i, tVert[this.face[i].id[0][0]], this.uv[this.face[i].id[0][1]],
-                    tNrm[this.face[i].id[0][2]],
+            tri[i] = new TriNode(
+                i,
+                tVert[this.face[i].id[0][0]],
+                this.uv[this.face[i].id[0][1]],
+                tNrm[this.face[i].id[0][2]],
 
-                    tVert[this.face[i].id[1][0]], this.uv[this.face[i].id[1][1]], tNrm[this.face[i].id[1][2]],
+                tVert[this.face[i].id[1][0]],
+                this.uv[this.face[i].id[1][1]],
+                tNrm[this.face[i].id[1][2]],
 
-                    tVert[this.face[i].id[2][0]], this.uv[this.face[i].id[2][1]], tNrm[this.face[i].id[2][2]]);
+                tVert[this.face[i].id[2][0]],
+                this.uv[this.face[i].id[2][1]],
+                tNrm[this.face[i].id[2][2]]
+            );
         }
 
         return tri;
@@ -116,8 +132,7 @@ public class Mesh {
 class Range {
     double[] value = { Double.MAX_VALUE, Double.MIN_NORMAL };
 
-    public Range() {
-    }
+    public Range() {}
 
     double getMin() {
         return value[0];

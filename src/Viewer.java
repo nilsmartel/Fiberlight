@@ -1,8 +1,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.util.Scanner;
+import javax.swing.*;
 
 /**
  * NORMAL CALCULATION METHOD TRANSITION / ANIMATION INTERFACE MATERIALS RECODE

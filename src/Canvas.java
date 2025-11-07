@@ -1,12 +1,12 @@
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.Image;
 import javax.imageio.ImageIO;
-import java.awt.Graphics;
 import javax.swing.JPanel;
-import java.awt.Point;
 
 public class Canvas extends JPanel {
     public Idx idx;

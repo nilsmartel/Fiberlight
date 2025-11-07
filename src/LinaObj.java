@@ -69,8 +69,8 @@ public class LinaObj {
         int r = 0;
 
         double[][][] rot = { { { 1, 0, 0 }, { 0, co[r], -si[r] }, { 0, si[r], co[r++] } },
-                { { co[r], 0, si[r] }, { 0, 1, 0 }, { -si[r], 0, co[r++] } },
-                { { co[r], -si[r], 0 }, { si[r], co[r], 0 }, { 0, 0, 1 } }, };
+            { { co[r], 0, si[r] }, { 0, 1, 0 }, { -si[r], 0, co[r++] } },
+            { { co[r], -si[r], 0 }, { si[r], co[r], 0 }, { 0, 0, 1 } }, };
 
         for (r = 0; r < 3; r++) {
             imx[0] = this.align(imx[0], rot[r]);
