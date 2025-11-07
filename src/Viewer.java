@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Scanner;
@@ -20,16 +19,16 @@ class Viewer {
                 // app.setTitle( rawMesh.name );
                 if (rawMesh.isEmpty()) {
                     System.out.println("import failed");
-                } else {
-                    System.out.println("import successfull");
-                    // app = new GuiFrame(512,512);
-                    app.setTitle(rawMesh.name);
-                    app.view.matrix.setScale(96);
-                    app.view.matrix.setRot(-Math.PI, 0, 0);
-                    app.view.matrix.rotateMx();
-                    app.view.setCamera();
-                    app.drawCanvas();
+                    continue;
                 }
+                System.out.println("import successfull");
+                // app = new GuiFrame(512,512);
+                app.setTitle(rawMesh.name);
+                app.view.matrix.setScale(96);
+                app.view.matrix.setRot(-Math.PI, 0, 0);
+                app.view.matrix.rotateMx();
+                app.view.setCamera();
+                app.drawCanvas();
                 continue;
             }
 
@@ -94,7 +93,11 @@ class Viewer {
             while (r1++ < r2) {
                 double fac = Math.pow((r1 / r2), 2);
                 app.view.matrix.setScale(96 * fac);
-                app.view.matrix.setRot(-Math.PI * fac, 1.00002 * (1 - fac), 0.7 * (1 - fac));
+                app.view.matrix.setRot(
+                    -Math.PI * fac,
+                    1.00002 * (1 - fac),
+                    0.7 * (1 - fac)
+                );
                 app.view.matrix.rotateMx();
                 app.view.setCamera();
                 app.drawCanvas();
@@ -136,39 +139,43 @@ class GuiFrame {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setLayout(null);
         this.frame.add(this.can);
-        this.frame.setSize(this.can.getWidth(), this.can.getHeight() + this.height_offset + this.labelHeight);
+        this.frame.setSize(
+            this.can.getWidth(),
+            this.can.getHeight() + this.height_offset + this.labelHeight
+        );
 
         this.label = new JLabel("Hello World");
         this.frame.getContentPane().setLayout(new BorderLayout());
         this.frame.getContentPane().add("South", label);
 
-        frame.addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseMoved(MouseEvent me) {
-                // String info = "[mouseMoved ]";
-                cur_x = me.getX();
-                cur_y = me.getY() - height_offset;
-                // info+=" x: " + cur_x + " |y: " + cur_y;
-                // label.setText(info);
+        frame.addMouseMotionListener(
+            new MouseMotionAdapter() {
+                public void mouseMoved(MouseEvent me) {
+                    // String info = "[mouseMoved ]";
+                    cur_x = me.getX();
+                    cur_y = me.getY() - height_offset;
+                    // info+=" x: " + cur_x + " |y: " + cur_y;
+                    // label.setText(info);
+                }
+
+                public void mouseDragged(MouseEvent me) {
+                    // String info = "[mouseDragged ]";
+                    if (Viewer.rawMesh.isEmpty())
+                        return;
+
+                    cur_dx = me.getX() - cur_x;
+                    cur_dy = (me.getY() - height_offset) - cur_y;
+                    cur_x = me.getX();
+                    cur_y = me.getY() - height_offset;
+
+                    view.matrix.setRot_relative(-cur_dy * .01, cur_dx * .02, 0);
+                    view.setCamera();
+                    drawCanvas();
+                    // info+=" x: " + cur_dx + " |y: " + cur_dy;
+                    // label.setText(info);
+                }
             }
-
-            public void mouseDragged(MouseEvent me) {
-                // String info = "[mouseDragged ]";
-                if (Viewer.rawMesh.isEmpty())
-                    return;
-
-                cur_dx = me.getX() - cur_x;
-                cur_dy = (me.getY() - height_offset) - cur_y;
-                cur_x = me.getX();
-                cur_y = me.getY() - height_offset;
-
-                view.matrix.setRot_relative(-cur_dy * .01, cur_dx * .02, 0);
-                view.setCamera();
-                drawCanvas();
-                // info+=" x: " + cur_dx + " |y: " + cur_dy;
-                // label.setText(info);
-            }
-
-        });
+        );
 
         this.frame.setVisible(true);
     }
@@ -185,15 +192,24 @@ class GuiFrame {
         this.label.setText(txt);
         int i;
         for (i = 0; i < this.labelHeight; i++) {
-            this.frame.setSize(this.can.getWidth(), this.can.getHeight() + this.height_offset + i);
+            this.frame.setSize(
+                this.can.getWidth(),
+                this.can.getHeight() + this.height_offset + i
+            );
             Thread.sleep(30);
         }
         Thread.sleep(5000);
         for (; i > 0; i--) {
-            this.frame.setSize(this.can.getWidth(), this.can.getHeight() + this.height_offset + i);
+            this.frame.setSize(
+                this.can.getWidth(),
+                this.can.getHeight() + this.height_offset + i
+            );
             Thread.sleep(30);
         }
-        this.frame.setSize(this.can.getWidth(), this.can.getHeight() + this.height_offset);
+        this.frame.setSize(
+            this.can.getWidth(),
+            this.can.getHeight() + this.height_offset
+        );
     }
 
     void setTitle(String title) {
@@ -223,13 +239,16 @@ class GuiFrame {
     }
 
     void drawCanvas() {
-
         Pixel bgColor = new Pixel(8, 8, 8);
 
         for (int x = 0; x < this.can.getWidth(); x++) {
             for (int y = 0; y < this.can.getHeight(); y++) {
                 if (this.view.renderPass.isPixelSet[x][y]) {
-                    this.can.idx.setPixel(x, y, PixelShader.nrm(this.view.renderPass.map[x][y]));
+                    this.can.idx.setPixel(
+                        x,
+                        y,
+                        PixelShader.nrm(this.view.renderPass.map[x][y])
+                    );
                 } else {
                     this.can.idx.setPixel(x, y, bgColor);
                 }
