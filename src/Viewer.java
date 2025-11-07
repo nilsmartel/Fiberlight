@@ -5,8 +5,6 @@ import javax.swing.*;
 import java.util.Scanner;
 
 /**
- * TODO
- *
  * NORMAL CALCULATION METHOD TRANSITION / ANIMATION INTERFACE MATERIALS RECODE
  * IDX CLASS
  */
